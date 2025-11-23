@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".progressivebar"
+            android:name=".Progressivebar"
             android:exported="false" />
         <activity
             android:name=".HairshopReccomendingPage"

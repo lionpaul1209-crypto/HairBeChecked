@@ -46,24 +46,26 @@
 
 
     <!-- 3. 추천 스타일 이름 텍스트 -->
-    <TextView
-        android:id="@+id/hairstyleNameTextView"
-        android:layout_width="252dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="24dp"
-        android:text="추천 스타일: 쉐도우 펌"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageCardView" />
 
     <!-- 4. 일치율 설명 텍스트 -->
 
 
     <!-- 5. 일치율을 보여주는 ProgressBar -->
     <!-- 가장 기본적인 ProgressBar를 사용하여 오류 가능성을 없앴습니다. -->
+    <TextView
+        android:id="@+id/hairstyleNameTextView"
+        android:layout_width="252dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="28dp"
+        android:text="추천 스타일: 쉐도우 펌"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageCardView" />
+
     <TextView
         android:id="@+id/matchDescriptionTextView"
         android:layout_width="370dp"

@@ -9,11 +9,11 @@ import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
+// Toast 임포트 제거됨
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.mediapipe.solutions.facemesh.FaceMesh;
-import com.google.mediapipe.solutions.facemesh.FaceMeshResult;
 import com.google.mediapipe.solutions.facemesh.FaceMeshOptions;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class HairRecommendingPage extends AppCompatActivity {
 
         if (imgstr == null) {
             Log.e(TAG, "이미지 URI가 null입니다.");
-            showToast("이미지를 불러올 수 없습니다.");
+            // 토스트 제거됨
             finish();
             return;
         }
@@ -87,7 +87,7 @@ public class HairRecommendingPage extends AppCompatActivity {
             faceMesh.setResultListener(faceMeshResult -> {
                 mainHandler.post(() -> {
                     Log.d(TAG, "MediaPipe 성공!");
-                    showToast("얼굴 인식 완료!");
+                    // 토스트 제거됨
                     proceedWithoutAnalysis();
                 });
             });
@@ -122,34 +122,36 @@ public class HairRecommendingPage extends AppCompatActivity {
 
         Log.d(TAG, "MediaPipe 스킵 - 바로 진행");
         mainHandler.post(() -> {
-            showToast("헤어스타일 추천을 시작합니다!");
+            // 토스트 제거됨
             proceedWithoutAnalysis();
         });
     }
 
     private void proceedWithoutAnalysis() {
-        // 얼굴 분석 없이 바로 추천
         String[] recommendations = {
-                "자연스러운 레이어드 컷을 추천드립니다!",
-                "트렌디한 단발 스타일은 어떠세요?",
-                "우아한 롱 헤어 스타일을 시도해보세요!",
-                "개성 있는 숏컷 스타일을 추천드립니다!",
-                "볼륨감 있는 웨이브 스타일을 추천드립니다!"
+                "쉐도우 펌", "레이어드 컷", "단발 C컬펌", "가일 컷", "히피 펌"
         };
-
         int randomIndex = (int) (Math.random() * recommendations.length);
+        String resultStyle = recommendations[randomIndex];
+        int matchRate = 80 + (int)(Math.random() * 15); // 80~95% 랜덤
 
-        // 1초 후 추천 표시
-        mainHandler.postDelayed(() -> {
-            showToast(recommendations[randomIndex]);
-        }, 1000);
-    }
-
-    private void showToast(String message) {
+        // UI 업데이트는 반드시 Main Thread에서 실행
         mainHandler.post(() -> {
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            // XML의 뷰들을 찾아 연결
+            TextView nameView = findViewById(R.id.hairstyleNameTextView);
+            TextView descView = findViewById(R.id.matchDescriptionTextView);
+            android.widget.ProgressBar progressBar = findViewById(R.id.matchProgressBar);
+
+            // 텍스트 및 게이지 변경
+            nameView.setText("추천 스타일: " + resultStyle);
+            descView.setText("이 스타일은 회원님과 " + matchRate + "% 일치합니다.");
+            progressBar.setProgress(matchRate);
+
+            // 토스트 제거됨
         });
     }
+
+    // showToast 메서드 자체를 삭제했습니다.
 
     @Override
     protected void onDestroy() {
