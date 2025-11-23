@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:gravity="center_horizontal"
+    android:padding="24dp">
+
+    <!-- 앱 로고 -->
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HairBeCheck"
+        android:textSize="26sp"
+        android:textColor="#2A6FEA"
+        android:textStyle="bold"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/breeserifregular" />
+
+    <!-- 프로필 이미지 -->
+
+    <!-- 추천 스타일 텍스트 -->
+    <ImageView
+        android:id="@+id/resultImage"
+        android:layout_width="167dp"
+        android:layout_height="168dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/result_bg"
+        android:padding="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_hairstyle" />
+
+    <TextView
+        android:id="@+id/recommendText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="추천 스타일: 쉐도우 펌"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp" />
+
+    <!-- 설명 -->
+    <TextView
+        android:id="@+id/matchText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이 스타일은 회원님과 80% 일치합니다."
+        android:textSize="15sp"
+        android:textColor="#555555"
+        android:layout_marginTop="8dp" />
+
+    <!-- 진행 바 -->
+    <ProgressBar
+        android:id="@+id/matchProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="260dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="24dp"
+        android:progressTint="#2A6FEA"
+        android:progressBackgroundTint="#E0E0E0"
+        android:max="100"
+        android:progress="80"
+        android:indeterminate="false"
+        android:clipToOutline="true" />
+
+    <!-- 확인 버튼 -->
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="#2A6FEA"
+        android:fontFamily="@font/breeserifregular"
+        android:padding="12dp"
+        android:text="확인"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

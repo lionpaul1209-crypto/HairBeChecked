@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HairRecommendingPage">
+
+    <!-- 1. 상단 로고 이미지 -->
+    <!-- app:srcCompat에 본인의 로고 drawable 파일 이름을 넣으세요. 예: @drawable/anotherlogo4 -->
+    <ImageView
+        android:id="@+id/headerLogoImageView"
+        android:layout_width="482dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="앱 로고"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/anotherlogo4" />
+
+    <!-- 2. 추천 헤어스타일 이미지 (CardView를 사용해 그림자 효과) -->
+    <!-- CardView는 라이브러리 호환성 문제가 거의 없습니다. -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageCardView"
+        android:layout_width="248dp"
+        android:layout_height="206dp"
+        app:cardCornerRadius="75dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerLogoImageView"
+        app:layout_constraintVertical_bias="0.05">
+
+        <ImageView
+            android:id="@+id/hairstyleImageView"
+            android:layout_width="match_parent"
+            android:layout_height="209dp"
+            android:contentDescription="추천 헤어스타일 이미지"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- 3. 추천 스타일 이름 텍스트 -->
+    <TextView
+        android:id="@+id/hairstyleNameTextView"
+        android:layout_width="252dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="24dp"
+        android:text="추천 스타일: 쉐도우 펌"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageCardView" />
+
+    <!-- 4. 일치율 설명 텍스트 -->
+
+
+    <!-- 5. 일치율을 보여주는 ProgressBar -->
+    <!-- 가장 기본적인 ProgressBar를 사용하여 오류 가능성을 없앴습니다. -->
+    <TextView
+        android:id="@+id/matchDescriptionTextView"
+        android:layout_width="370dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="16dp"
+        android:text="이 스타일은 회원님과 80% 일치합니다."
+        android:textColor="#333333"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hairstyleNameTextView" />
+
+
+    <!-- 6. 확인 버튼 -->
+    <!-- 가장 기본적인 AppCompatButton을 사용하여 호환성을 확보했습니다. -->
+
+    <ProgressBar
+        android:id="@+id/matchProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="333dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="48dp"
+        android:max="100"
+        android:progress="80"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/matchDescriptionTextView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/confirmButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="48dp"
+        android:background="#1E88E5"
+        android:text="확인"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
