@@ -1,17 +1,25 @@
 package com.example.hairbechecked;
 
+import com.example.hairbechecked.data.local.AppDatabase;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import com.example.hairbechecked.data.model.HairHistory;
+import com.example.hairbechecked.data.repository.HairHistoryRepository;
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 // Toast 임포트 제거됨
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.google.mediapipe.solutions.facemesh.FaceMesh;
 import com.google.mediapipe.solutions.facemesh.FaceMeshOptions;
@@ -19,16 +27,28 @@ import com.google.mediapipe.solutions.facemesh.FaceMeshOptions;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.example.hairbechecked.data.model.HairHistory;
+import com.example.hairbechecked.data.repository.HairHistoryRepository;
 
 public class HairRecommendingPage extends AppCompatActivity {
     private static final String TAG = "HairRecommendingPage";
     private FaceMesh faceMesh;
     private ExecutorService backgroundExecutor;
+    private HairHistoryRepository historyRepository;
+    private String latestResultStyle;
+
     private Handler mainHandler;
     private boolean isProcessing = false;
-
+    private AppDatabase db;
+    private HairHistoryRepository repository;
+    private String recommendedStyle = "";  // 추천된 스타일
+    private String faceShape = "";  // 얼굴형
+    private String imagePath = "";  // 이미지 경로
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        repository = new HairHistoryRepository(getApplication());
+        historyRepository = new HairHistoryRepository(getApplication());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hair_recommending_page);
 
@@ -64,6 +84,20 @@ public class HairRecommendingPage extends AppCompatActivity {
                 skipMediaPipe();
             }
         });
+        findViewById(R.id.saveButton).setOnClickListener(v -> {
+            saveHistory(imgstr, latestResultStyle);
+
+        });
+        // 히스토리 보기 버튼
+        Button btnViewHistory = findViewById(R.id.btnViewHistory);
+        btnViewHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HairRecommendingPage.this, com.example.hairbechecked.history.HistoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void tryMediaPipe(Bitmap bitmap) {
@@ -133,23 +167,22 @@ public class HairRecommendingPage extends AppCompatActivity {
         };
         int randomIndex = (int) (Math.random() * recommendations.length);
         String resultStyle = recommendations[randomIndex];
-        int matchRate = 80 + (int)(Math.random() * 15); // 80~95% 랜덤
 
-        // UI 업데이트는 반드시 Main Thread에서 실행
+        latestResultStyle = resultStyle; // ⭐ 저장을 위해 추가된 코드
+
+        int matchRate = 80 + (int)(Math.random() * 15);
+
         mainHandler.post(() -> {
-            // XML의 뷰들을 찾아 연결
             TextView nameView = findViewById(R.id.hairstyleNameTextView);
             TextView descView = findViewById(R.id.matchDescriptionTextView);
             android.widget.ProgressBar progressBar = findViewById(R.id.matchProgressBar);
 
-            // 텍스트 및 게이지 변경
             nameView.setText("추천 스타일: " + resultStyle);
             descView.setText("이 스타일은 회원님과 " + matchRate + "% 일치합니다.");
             progressBar.setProgress(matchRate);
-
-            // 토스트 제거됨
         });
     }
+
 
     // showToast 메서드 자체를 삭제했습니다.
 
@@ -172,4 +205,19 @@ public class HairRecommendingPage extends AppCompatActivity {
             faceMesh = null;
         }
     }
+
+    private void saveHistory(String imgstr, String latestResultStyle) {
+        long uploadDate = System.currentTimeMillis();
+
+        HairHistory history = new HairHistory(
+                uploadDate,
+                latestResultStyle,
+                imgstr,
+                "정보 없음" // 얼굴형 나중에 넣으면 됨
+        );
+
+        historyRepository.insertHistory(history);
+    }
+
+
 }

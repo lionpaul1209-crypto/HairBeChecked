@@ -48,6 +48,9 @@
         <activity
             android:name=".Sign_up"
             android:exported="false" />
+        <activity
+            android:name=".history.HistoryActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

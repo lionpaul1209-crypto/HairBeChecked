@@ -26,13 +26,14 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/imageCardView"
         android:layout_width="248dp"
+        android:layout_marginTop="250dp"
         android:layout_height="206dp"
         app:cardCornerRadius="75dp"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerLogoImageView"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05">
 
         <ImageView
@@ -89,7 +90,7 @@
         android:layout_width="333dp"
         android:layout_height="24dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="48dp"
         android:max="100"
         android:progress="80"
@@ -98,13 +99,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/matchDescriptionTextView" />
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveButton"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:background="#1E88E5"
+        android:text="저장"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matchProgressBar" />
+
+    <Button
+        android:id="@+id/btnViewHistory"
+        android:layout_width="365dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#1E88E5"
+        android:text="저장한 히스토리 보기"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveButton" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirmButton"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="28dp"
         android:background="#1E88E5"
         android:text="확인"
         android:textColor="#FFFFFF"
