@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -14,6 +15,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // BuildConfig 필드에 API 키를 저장
+        buildConfigField "String", "GEMINI_API_KEY", "\"" + getApiKey() + "\""
     }
 
     buildTypes {
@@ -25,6 +29,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        buildConfig = true
     }
 
     compileOptions {
@@ -33,27 +38,45 @@ android {
     }
 }
 
+// local.properties에서 API 키를 읽어오는 함수
+def getApiKey() {
+    Properties properties = new Properties()
+    if (rootProject.file('local.properties').exists()) {
+        properties.load(rootProject.file('local.properties').newDataInputStream())
+    }
+    return properties.getProperty("GEMINI_API_KEY", "")
+}
+
 dependencies {
+    // Navigation Component
+    implementation 'androidx.navigation:navigation-fragment:2.8.5'
+    implementation 'androidx.navigation:navigation-ui:2.8.5'
+
+    // MediaPipe & TensorFlow
     implementation 'com.google.mediapipe:solution-core:latest.release'
     implementation 'com.google.mediapipe:facemesh:latest.release'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.activity:activity:1.8.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
     implementation 'org.tensorflow:tensorflow-lite:2.13.0'
     implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
 
-    // Room Database (Java용)
+    // UI Framework
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.activity:activity:1.9.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+
+    // Test
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    // Room Database
     def roomVersion = "2.6.1"
     implementation "androidx.room:room-runtime:$roomVersion"
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
 
     // Lifecycle
-    implementation "androidx.lifecycle:lifecycle-runtime:2.7.0"
+    implementation "androidx.lifecycle:lifecycle-runtime:2.8.7"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.8.7"
 
     // Glide (이미지 로딩)
     implementation "com.github.bumptech.glide:glide:4.16.0"
@@ -61,4 +84,28 @@ dependencies {
 
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:1.3.2"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
+
+    // ⭐ Gemini SDK
+    implementation "com.google.ai.client.generativeai:generativeai:0.9.0"
+
+    // ⭐ Guava (Futures, FutureCallback 사용 - 오타 수정 완료)
+    implementation "com.google.guava:guava:33.0.0-android"
+
+    // ⭐ 코루틴과 Guava를 연결해주는 브릿지 (Java에서 GenerativeModelFutures 사용할 때 필수 추가!)
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.8.1"
+
+    // ⭐ Reactive Streams
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.8.1"
+
+    // ⭐ Retrofit & OkHttp (중복 선언 제거 및 정리 완료)
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    // ⭐ JSON 파싱 (Gson 버전 2.11.0으로 통일, 중복 제거 완료)
+    implementation 'com.google.code.gson:gson:2.11.0'
 }

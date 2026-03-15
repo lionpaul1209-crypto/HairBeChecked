@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class MainPage1 extends AppCompatActivity {
+public class MainPage extends AppCompatActivity {
 
     private static final int REQUEST_CODE_PERMISSION = 100;
     private static final int REQUEST_CODE_GALLERY = 101;
@@ -27,7 +27,7 @@ public class MainPage1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page1);
+        setContentView(R.layout.activity_main_page);
 
         imageButton = findViewById(R.id.imageButton4);
         imageView = findViewById(R.id.imageView3);

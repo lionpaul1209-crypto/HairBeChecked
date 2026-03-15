@@ -22,7 +22,7 @@ public class LoginPage extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginPage.this, MainPage1.class);
+                Intent intent = new Intent(LoginPage.this, MainPage.class);
                 startActivity(intent);
             }
         });

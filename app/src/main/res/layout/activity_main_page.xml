@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainPage1">
+    tools:context=".MainPage">
 
     <!-- 방법 1: CardView를 사용한 세련된 디자인 -->
 
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Check about your hairstyle"
+        android:text="Check your hairstyle"
         android:textColor="#1E88E5"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
